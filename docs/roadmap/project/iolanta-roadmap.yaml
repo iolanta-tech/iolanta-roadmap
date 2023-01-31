@@ -1,0 +1,38 @@
+roadmap:roadmap:
+  - title: Refactor iolanta-roadmap into a separate project
+    description: I need my roadmaps stored somewhere, let it be in iolanta-roadmap directory for now. Install iolanta package locally in editable mode for development purposes.
+    blocks:
+      - roadmap-ontology
+      - iolanta-pypi
+      - title: Create Github issues from iolanta-roadmap tasks
+
+  - title: iolanta-roadmap → PyPI
+    description: Installing graphviz is a trouble
+    $id: iolanta-roadmap-pypi
+    is-blocked-by:
+      - title: This roadmap has empty tasks
+      - title: Find or build the ontology for iolanta-roadmap?
+        $id: roadmap-ontology
+        blocks:
+          title: Features for iolanta-roadmap
+          blocks: iolanta-roadmap-pypi
+          branches:
+            - title: "Implement `subtasks`"
+            - title: How to denote OR instead of XOR?
+            - title: If the focus of the roadmap is not a Task it all looks weird
+            - title: Highlight tasks which have no blockers
+            - title: Images on tasks
+            - title: Split graph rendering into separate facets
+            - title: Determine color of nodes dynamically
+          is-blocked-by:
+            - title: Display subtasks?
+              branches:
+                - title: Yes ☺
+                - title: No ☹
+            - title: Support additional properties for tasks
+              branches:
+                - title: Date
+                - title: Duration
+                - title: Time
+                - title: Cost
+                - title: Assignee

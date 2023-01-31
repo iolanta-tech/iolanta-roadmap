@@ -1,0 +1,41 @@
+roadmap:roadmap:
+  - title: Add jeeves-yeti-pyproject as a dev dependency
+    is-blocked-by:
+      title: Upgrade mkdocs-iolanta-tables dependency for jeeves-yeti-pyproject
+      blocks:
+        - iolanta-roadmap-pypi
+        - jeeves
+      is-blocked-by:
+        title: mkdocs-iolanta-tables 2.0
+        $id: revive-mkdocs-iolanta-tables
+        is-blocked-by:
+          title: "`iolanta` → PyPI"
+          $id: iolanta-pypi
+          blocks:
+            - iolanta-roadmap-pypi
+            - title: First rough conference paper draft
+              blocks:
+                - title: Automagically generate parts of the paper
+                  blocks: iolanta-whitepaper
+
+          is-blocked-by:
+            title: Auto render PNG roadmap when files directory changes
+            branches:
+              - title: Built-in iolanta functionality
+              - title: Separate CLI tool that will call iolanta
+
+  - title: Move all iolanta-* plugins into iolanta repo
+  - title: CLI does not understand prefixes for iolanta-record, iolanta-graph or others
+    $type: Bug
+  - title: Render progress bar with % in numeric columns of CLI tables
+  - title: rename iolanta-graph → iolanta-raw
+
+  - title: Store the graph for Iolanta to use
+    $id: branches
+    branches:
+      - title: On disk
+        branches:
+          - title: In current directory
+          - title: At home directory
+          - title: Look for the file through directory structure
+      - title: In RAM

@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "iolanta-roadmap"
+version = "0.1.0"
+description = "Structured Roadmaps"
+authors = ["Anatoly Scherbakov <altaisoft@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<4.0"
+graphviz = "^0.20.1"
+iolanta = "^0.1.0"
+
+[tool.poetry.plugins."iolanta.plugins"]
+roadmap = "iolanta_roadmap:Roadmap"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

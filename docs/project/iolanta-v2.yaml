@@ -1,0 +1,66 @@
+roadmap:roadmap:
+  - title: Iolanta v2 release
+    $id: iolanta-v2
+    blocks:
+      - https
+      - happiness
+    is-blocked-by:
+      - title: Render linked data from IPFS
+        description: LOD has datasets published on IPFS, try rendering them
+      - iolanta-whitepaper
+      - title: Publish more papers?!
+        is-blocked-by: iolanta-whitepaper
+        branches:
+          - title: "Iolanta: Linked Data browser"
+          - title: Cozy Linked Data with Iolanta
+          - title: Evidence based decision making with Linked Data
+      - title: What kind of dataset to use?
+        is-blocked-by:
+          - title: Explore LODCloud to see what useful datasets it has
+            description: Is there any point at all to target iolanta at that?
+          - title: Try rendering something from the Web
+            description: This will help me decide on the dataset to use
+            is-blocked-by: roadmap-choice
+      - title: Determine the persistence strategy
+        $id: persistence
+        is-blocked-by:
+          - title: Remote data would be very slow without persistence
+            description: Try to download and infer schema.org, for instance
+            bug: true
+            is-blocked-by: iolanta-v2
+      - title: What if there are multiple URLs to download data from?
+        description: We do not support that right now
+      - title: What if the user does not know where to download data from?
+      - title: What if rendering requires data from sources the user has not provided?
+        description: Do we implement spider functionality?
+      - title: Perhaps we can connect to remote graph and run SPARQL queries there?
+      - title: What about interactive browsing mode?
+      - title: Draw data from a wild dataset
+        description: Load from HTTPS and render something very primitive
+        $id: https
+      - title: Render wild tables in CLI
+        $id: wild-tables
+        description: Provide a modern, sleek CLI experience which would be sufficient to demonstrate against dbpedia, LOD and other sources.
+        is-blocked-by:
+          - title: Support output locale
+            description: Because otherwise dbpedia output will be impossible to read
+          - title: Implement '--as ?'
+            description: Show available environments for an URL
+          - title: Implement CLI table facets for cozy data
+            is-blocked-by:
+              title: "Move table facets: mkdocs-iolanta-tables → iolanta-tables"
+              blocks: revive-mkdocs-iolanta-tables
+          - title: Render a wild node as a table
+            is-blocked-by:
+              - title: Generate table:rows & table:columns in memory
+                $id: wild-tables-ram
+              - title: Generate table:rows & table:columns on disk
+                $id: wild-tables-disk
+                description: and load it
+                is-blocked-by: persistence
+              - title: Write custom Python code for each case
+                $id: wild-tables-python
+                description: To list instances of an rdfs:Class, to implement an analog of iolanta-record, to list a Wikipedia category, etc
+              - id: wild-tables-sh
+                title: Generate SHACL or ShEx forms to describe tables
+

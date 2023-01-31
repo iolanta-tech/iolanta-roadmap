@@ -1,0 +1,16 @@
+roadmap:roadmap:
+  - title: Merge stas-rust-bi-refactoring → master
+    $id: merge
+    is-blocked-by:
+      - title: Test @ testing
+
+  - title: Deploy to production
+    $id: deploy
+    is-blocked-by:
+      - title: Test @ staging
+        is-blocked-by: merge
+      - title: Databricks user agent
+      - title: Stas reviews GV-828
+        is-blocked-by:
+          title: GV-828 failing tests & checks
+          bug: true

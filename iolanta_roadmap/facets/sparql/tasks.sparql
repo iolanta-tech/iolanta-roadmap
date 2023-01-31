@@ -1,0 +1,14 @@
+SELECT ?task ?title ?description ?is_bug ?is_branch_of ?blocks ?is_focused WHERE {
+    ?task
+        ( roadmap:blocks | roadmap:is-branch-of )* $goal ;
+        roadmap:title ?title .
+
+    OPTIONAL {
+        BIND(true AS ?is_focused) .
+        FILTER(?task = $goal) .
+    }
+    OPTIONAL { ?task roadmap:is-branch-of ?is_branch_of }
+    OPTIONAL { ?task roadmap:blocks ?blocks }
+    OPTIONAL { ?task roadmap:bug ?is_bug }
+    OPTIONAL { ?task roadmap:description ?description }
+} ORDER BY ?task ?is_branch_of ?blocks

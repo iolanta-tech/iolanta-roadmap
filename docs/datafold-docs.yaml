@@ -1,0 +1,32 @@
+roadmap:roadmap:
+  - title: Calculate Accelerate metrics in docs
+    blocks: datafold
+  - $id: datafold-kb-live
+    title: Datafold Knowledge Base is live
+    blocks: datafold
+    is-blocked-by:
+      - title: Render roadmaps in docs
+      - title: Automatically renew knowledge base on commit
+        is-blocked-by:
+          - title: Post a PR comment
+            description: …with link to this PR's knowledge base version
+            is-blocked-by:
+              - title: How to retrieve current PR name in GitHub CI?
+          - title: Push the docs to the docs server
+            description: On each commit
+            is-blocked-by:
+            - title: "`mike` cannot build docs @ CI"
+              bug: yes
+              description: https://github.com/jimporter/mike/issues/133
+            - host
+
+      - title: kb.datafold.io
+        description: Publish the knowledge base under a domain
+        is-blocked-by:
+          - title: Setup oauth2-proxy
+            is-blocked-by:
+              - title: Serve docs via HTTPS
+                is-blocked-by:
+                - title: Create a separate host for Knowledge Base
+                  $id: host
+              - title: Create Google OAuth Credentials

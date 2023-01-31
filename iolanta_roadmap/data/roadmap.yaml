@@ -1,0 +1,23 @@
+- $id: roadmap:blocks
+  rdfs:domain:
+    $id: roadmap:Task
+  rdfs:range:
+    $id: roadmap:Task
+  owl:inverseOf:
+    $id: roadmap:is-blocked-by
+
+- $id: roadmap:branches
+  rdfs:domain:
+    $id: roadmap:Task
+  rdfs:range:
+    $id: roadmap:Task
+  owl:inverseOf:
+    $id: roadmap:is-branch-of
+
+- $id: roadmap:Task
+  iolanta:instanceFacet:
+    $id: python://iolanta_roadmap.GraphvizRoadmap
+    iolanta:supports:
+      - iolanta:cli
+      - iolanta:png
+      - iolanta:svg
