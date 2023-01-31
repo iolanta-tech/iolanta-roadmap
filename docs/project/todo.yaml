@@ -1,4 +1,31 @@
 roadmap:roadmap:
+  - title: Choose iolanta plugin to demonstrate
+    $id: whitepaper-plugin
+    branches:
+      - title: iolanta-tables
+        blocks: one-idea
+      - title: iolanta-record
+        blocks: one-idea
+      - title: …?
+
+  - title: Which ontologies to show in the article?
+    branches:
+      - title: iolanta
+        blocks: one-idea
+      - title: roadmap
+      - title: table
+        $id: foo
+      - title: …?
+
+  - title: First rough conference paper draft
+    $id: rough
+    blocks:
+      - title: Automagically generate parts of the paper
+        blocks: iolanta-whitepaper
+    is-blocked-by:
+      - title: One paper ⇔ one idea
+        $id: one-idea
+
   - title: Add jeeves-yeti-pyproject as a dev dependency
     is-blocked-by:
       title: Upgrade mkdocs-iolanta-tables dependency for jeeves-yeti-pyproject
@@ -9,15 +36,6 @@ roadmap:roadmap:
         title: mkdocs-iolanta-tables 2.0
         $id: revive-mkdocs-iolanta-tables
         is-blocked-by:
-          title: "`iolanta` → PyPI"
-          $id: iolanta-pypi
-          blocks:
-            - iolanta-roadmap-pypi
-            - title: First rough conference paper draft
-              blocks:
-                - title: Automagically generate parts of the paper
-                  blocks: iolanta-whitepaper
-
           is-blocked-by:
             title: Auto render PNG roadmap when files directory changes
             branches:

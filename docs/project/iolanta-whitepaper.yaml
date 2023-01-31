@@ -4,19 +4,6 @@ roadmap:roadmap:
     title: "Iolanta: ontology based Linked Data visualization with facets"
     description: Submit the paper for ISWC2023 or SEMANTICS2023
     is-blocked-by:
-      - title: Choose iolanta plugin to demonstrate
-        branches:
-          - title: iolanta-tables
-            $id: tables-whitepaper
-          - title: iolanta-roadmap
-            $id: roadmap-whitepaper
-            is-blocked-by:
-              - iolanta-roadmap-pypi
-              - title: iolanta-roadmap has no unit tests at this point
-                bug: true
-              - title: If Branches block only has one branch there is no border between branch and header
-                bug: true
-
       - title: Ask for feedback
         branches:
           - title: Authors of the Linked Data Visualization book
@@ -26,15 +13,15 @@ roadmap:roadmap:
 
   - title: Choose dataset to demo
     $id: choose-dataset-for-whitepaper
-    blocks: iolanta-whitepaper
     branches:
-      - title: Something downloaded from LODCloud
-        blocks: tables-whitepaper
+      - title: Something downloaded from LODCloud or DBpedia or Wikidata or …
+        blocks: rough
+        is-blocked-by:
+          - title: Explore LODCloud to see what useful datasets it has
+            description: Is there any point at all to target iolanta at that?
+      - title: Tables written by myself
       - title: Roadmap written by myself
         blocks: roadmap-whitepaper
-        is-blocked-by:
-          title: Violate one paper = one idea principle
-          bug: true
 
   - title: Render Markdown error messages in CLI as Markdown
   - title: "Move `Default` facet into iolanta"
@@ -84,7 +71,6 @@ roadmap:roadmap:
     description: Draw user friendly documentation
 
   - title: Cozy data
-    blocks: iolanta-whitepaper
     is-blocked-by:
       - title: Download remote data and get cozy data as a result
         description: Use jeeves for that

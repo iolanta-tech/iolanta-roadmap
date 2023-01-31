@@ -7,6 +7,7 @@ from functools import cached_property
 from typing import Dict, List, Tuple, Iterable, Optional
 
 import funcy
+import rich
 from lambdas import _
 
 from dominate.tags import table, tr, td, b, font
@@ -47,7 +48,7 @@ class TaskWithBranches(Task):
     branches: List[Task] = field(default_factory=list)
 
 
-def as_graph_id(node: NotLiteralNode):
+def as_graph_id(node: NotLiteralNode) -> str:
     return str(node).replace(':', '_')
 
 
@@ -76,9 +77,11 @@ def format_record_label(raw_label: str) -> str:
 
 class GraphvizRoadmap(Facet[str]):
     def _task_by_id_stream(self) -> Iterable[Tuple[str, Task]]:
+        rows = self.stored_query('tasks.sparql', goal=self.iri)
+
         grouped_rows = itertools.groupby(
             sorted(
-                self.stored_query('tasks.sparql', goal=self.iri),
+                rows,
                 key=_['task'],
             ),
             key=_['task'],
@@ -280,8 +283,13 @@ class GraphvizRoadmap(Facet[str]):
                 # Source
                 source_task_id = task.id
                 tailport = 'e'
+
                 if source_task_id in self.task_with_branches_by_id:
                     source_task_id = f'{source_task_id}:title:e'
+                    tailport = None
+
+                elif parent_of_source_task_id := funcy.first(task.is_branch_of):
+                    source_task_id = f'{parent_of_source_task_id}:{source_task_id}:e'
                     tailport = None
 
                 if task.id in self.task_by_id:

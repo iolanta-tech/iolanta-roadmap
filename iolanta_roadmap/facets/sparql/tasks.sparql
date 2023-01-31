@@ -1,6 +1,6 @@
 SELECT ?task ?title ?description ?is_bug ?is_branch_of ?blocks ?is_focused WHERE {
     ?task
-        ( roadmap:blocks | roadmap:is-branch-of )* $goal ;
+        ( roadmap:blocks | roadmap:is-branch-of | roadmap:branches )* $goal ;
         roadmap:title ?title .
 
     OPTIONAL {

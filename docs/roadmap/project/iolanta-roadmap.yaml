@@ -1,16 +1,19 @@
 roadmap:roadmap:
-  - title: Refactor iolanta-roadmap into a separate project
-    description: I need my roadmaps stored somewhere, let it be in iolanta-roadmap directory for now. Install iolanta package locally in editable mode for development purposes.
-    blocks:
-      - roadmap-ontology
-      - iolanta-pypi
-      - title: Create Github issues from iolanta-roadmap tasks
+  - title: iolanta-roadmap
+    $id: roadmap-whitepaper
+    is-blocked-by:
+      - iolanta-roadmap-pypi
+      - title: iolanta-roadmap has no unit tests at this point
+        bug: true
+      - title: If Branches block only has one branch there is no border between branch and header
+        bug: true
 
   - title: iolanta-roadmap → PyPI
     description: Installing graphviz is a trouble
     $id: iolanta-roadmap-pypi
     is-blocked-by:
       - title: This roadmap has empty tasks
+        bug: true
       - title: Find or build the ontology for iolanta-roadmap?
         $id: roadmap-ontology
         blocks:

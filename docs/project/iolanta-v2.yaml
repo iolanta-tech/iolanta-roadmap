@@ -16,8 +16,6 @@ roadmap:roadmap:
           - title: Evidence based decision making with Linked Data
       - title: What kind of dataset to use?
         is-blocked-by:
-          - title: Explore LODCloud to see what useful datasets it has
-            description: Is there any point at all to target iolanta at that?
           - title: Try rendering something from the Web
             description: This will help me decide on the dataset to use
             is-blocked-by: roadmap-choice
