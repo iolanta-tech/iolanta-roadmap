@@ -2,20 +2,16 @@ import html
 import itertools
 import operator
 import textwrap
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from functools import cached_property
-from typing import Dict, List, Tuple, Iterable, Optional
+from typing import Dict, Iterable, List, Optional, Tuple
 
 import funcy
-import rich
-from lambdas import _
-
-from dominate.tags import table, tr, td, b, font
-from dominate.util import raw, text
-
-from iolanta.facet import Facet
 import graphviz
-
+import rich
+from dominate.tags import b, font, table, td, tr
+from dominate.util import raw, text
+from iolanta.facet import Facet
 from iolanta.models import NotLiteralNode
 
 
@@ -57,7 +53,7 @@ def wrap_html(source: str, align: str = 'center') -> text:
 
     wrapped = splitter.join(
         textwrap.wrap(
-            html.escape(source.replace('"', '')),
+            html.escape(str(source).replace('"', '')),
             width=20,
         ),
     )
@@ -82,9 +78,9 @@ class GraphvizRoadmap(Facet[str]):
         grouped_rows = itertools.groupby(
             sorted(
                 rows,
-                key=_['task'],
+                key=operator.itemgetter('task'),
             ),
-            key=_['task'],
+            key=operator.itemgetter('task'),
         )
 
         for task_id, rows_per_task in grouped_rows:
@@ -95,17 +91,21 @@ class GraphvizRoadmap(Facet[str]):
             is_bug = 'is_bug' in first_row
             is_focused = 'is_focused' in first_row
 
-            blocks = list(set(
-                as_graph_id(blocked_task_id)
-                for row in rows
-                if (blocked_task_id := row.get('blocks'))
-            ))
+            blocks = list(
+                set(
+                    as_graph_id(blocked_task_id)
+                    for row in rows
+                    if (blocked_task_id := row.get('blocks'))
+                ),
+            )
 
-            is_branch_of = list(set(
-                as_graph_id(blocked_task_id)
-                for row in rows
-                if (blocked_task_id := row.get('is_branch_of'))
-            ))
+            is_branch_of = list(
+                set(
+                    as_graph_id(blocked_task_id)
+                    for row in rows
+                    if (blocked_task_id := row.get('is_branch_of'))
+                ),
+            )
 
             graph_id = as_graph_id(task_id)
             yield graph_id, Task(
@@ -126,7 +126,7 @@ class GraphvizRoadmap(Facet[str]):
             graph_attr={
                 'rankdir': 'LR',
                 'forcelabels': 'true',
-            }
+            },
         )
 
         self.draw_nodes_with_branches(graph)
@@ -144,14 +144,14 @@ class GraphvizRoadmap(Facet[str]):
 
         groups = itertools.groupby(
             rows,
-            key=_['task'],
+            key=operator.itemgetter('task'),
         )
 
         return {
             root_task: [
                 (
                     as_graph_id(branch['branch']),
-                    format_record_label(branch['title']),
+                    format_record_label(str(branch['title'])),
                 )
                 for branch in group
             ]
@@ -179,7 +179,7 @@ class GraphvizRoadmap(Facet[str]):
         return {
             parent_id: TaskWithBranches(
                 **asdict(self.task_by_id[parent_id]),
-                branches=list(map(funcy.last, children))
+                branches=list(map(funcy.last, children)),
             )
             for parent_id, children in groups
         }
