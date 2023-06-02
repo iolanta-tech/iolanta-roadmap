@@ -2,46 +2,18 @@ import html
 import itertools
 import operator
 import textwrap
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict
 from functools import cached_property
-from typing import Dict, Iterable, List, Optional, Tuple
+from typing import Dict, Iterable, Tuple
 
 import funcy
 import graphviz
-import rich
 from dominate.tags import b, font, table, td, tr
 from dominate.util import raw, text
-from iolanta.facet import Facet
+from iolanta.facets.facet import Facet
 from iolanta.models import NotLiteralNode
 
-
-@dataclass
-class Task:
-    id: str
-    title: str
-    is_bug: bool = False
-    is_focused: bool = False
-    blocks: List[str] = field(default_factory=list)
-    is_branch_of: List[str] = field(default_factory=list)
-
-    @property
-    def background_color(self):
-        if self.is_focused:
-            return '#730FC3'
-
-        return '#AC6363' if self.is_bug else '#788897'
-
-    @property
-    def pen_color(self):
-        if self.is_focused:
-            return '#730FC3'
-
-        return '#AC6363' if self.is_bug else '#4B5D6C'
-
-
-@dataclass
-class TaskWithBranches(Task):
-    branches: List[Task] = field(default_factory=list)
+from iolanta_roadmap.facets.models import Task, TaskWithBranches
 
 
 def as_graph_id(node: NotLiteralNode) -> str:
@@ -121,7 +93,8 @@ class GraphvizRoadmap(Facet[str]):
     def task_by_id(self) -> Dict[str, Task]:
         return dict(self._task_by_id_stream())
 
-    def show(self) -> str:
+    @cached_property
+    def roadmap(self) -> graphviz.Digraph:
         graph = graphviz.Digraph(
             graph_attr={
                 'rankdir': 'LR',
@@ -133,11 +106,7 @@ class GraphvizRoadmap(Facet[str]):
         self.draw_nodes_without_branches(graph)
         self.draw_edges(graph)
 
-        graph.render(
-            '/tmp/iolanta-roadmap.png',
-            format='png',
-            view=True,
-        )
+        return graph
 
     def find_branches_by_task(self):
         rows = self.stored_query('branches.sparql')

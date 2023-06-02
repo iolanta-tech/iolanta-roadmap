@@ -15,9 +15,12 @@
     $id: roadmap:is-branch-of
 
 - $id: roadmap:Task
-  iolanta:instanceFacet:
-    $id: python://iolanta_roadmap.GraphvizRoadmap
-    iolanta:supports:
-      - iolanta:cli
-      - iolanta:png
-      - iolanta:svg
+  iolanta:hasInstanceFacet:
+    - $id: python://iolanta_roadmap.SVGRoadmap
+      iolanta:supports:
+        - $id: iolanta:html
+        - $id: iolanta:svg
+
+    - $id: python://iolanta_roadmap.CLIRoadmap
+      iolanta:supports:
+        - $id: iolanta:cli
